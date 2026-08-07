@@ -1745,24 +1745,24 @@ const CSS = `
 }
 .edg *{box-sizing:border-box;}
 .stage{position:relative; width:100%; max-width:1000px; margin:0 auto; aspect-ratio:16/9;
-  max-height:calc(100vh - 24px); max-height:calc(100dvh - 24px);
-  overflow:hidden; border-radius:14px; background:#3A2A6E;
+  max-height:var(--appvh, 100vh); overflow:hidden; border-radius:14px; background:#3A2A6E;
   border:4px solid var(--out); box-shadow:0 10px 0 #00000035;}
-/* 縦長の画面（タブレット縦持ち・スマホ）は高さいっぱいに広げる */
+/* 縦長の画面（タブレット縦持ち・スマホ）は高さいっぱいに */
 @media (max-aspect-ratio:1/1){
-  .stage{aspect-ratio:auto; height:var(--appvh, calc(100dvh - 24px)); max-height:none;}
+  .stage{aspect-ratio:auto; height:calc(var(--appvh, 100vh) - 24px); max-height:none;}
 }
-/* ホーム画面から起動したとき（アプリ表示）は余白なしで全画面 */
-.is-app .stage{max-width:none; width:100%; aspect-ratio:auto; max-height:none;
-  height:var(--appvh, 100dvh); border-radius:0; border:none; box-shadow:none;}
+/* ホーム画面から起動したとき（アプリ表示）＝親の高さいっぱい。vh は使わない */
+.is-app .stage{max-width:none; width:100%; height:100%; max-height:none; aspect-ratio:auto;
+  border-radius:0; border:none; box-shadow:none; margin:0;}
 @media (display-mode:standalone){
-  .stage{max-width:none; width:100%; aspect-ratio:auto; max-height:none;
-    height:var(--appvh, 100dvh); border-radius:0; border:none; box-shadow:none;}
+  .stage{max-width:none; width:100%; height:100%; max-height:none; aspect-ratio:auto;
+    border-radius:0; border:none; box-shadow:none; margin:0;}
 }
 @media (display-mode:fullscreen){
-  .stage{max-width:none; width:100%; aspect-ratio:auto; max-height:none;
-    height:var(--appvh, 100dvh); border-radius:0; border:none; box-shadow:none;}
+  .stage{max-width:none; width:100%; height:100%; max-height:none; aspect-ratio:auto;
+    border-radius:0; border:none; box-shadow:none; margin:0;}
 }
+.is-app .edg, .is-app #root > .edg{width:100%; height:100%;}
 .layer{position:absolute; inset:0; padding:14px 16px;}
 .center-col{display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:11px; padding:16px; overflow:auto;}
@@ -2003,7 +2003,8 @@ const CSS = `
 .gobtn.sub{background:#E9E2F2;}
 
 /* ================= 端末互換・全画面 ================= */
-.edg{touch-action:manipulation; -webkit-tap-highlight-color:transparent;}
+.edg{touch-action:manipulation; -webkit-tap-highlight-color:transparent; width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;}
 .edg button{touch-action:manipulation;}
 .edg:fullscreen{display:flex; align-items:center; justify-content:center;
   width:100vw; height:100vh; background:#150C2B; padding:0;}
@@ -2023,7 +2024,7 @@ const CSS = `
 }
 /* 横向きで高さが足りない端末 */
 @media (max-height:520px) and (orientation:landscape){
-  .stage{height:var(--appvh, calc(100dvh - 20px)); aspect-ratio:auto; max-height:none;}
+  .stage{height:calc(var(--appvh, 100vh) - 20px); aspect-ratio:auto; max-height:none;}
   .qlabel{display:none;}
   .bubble{display:none;}
   .giveup{display:none;}
