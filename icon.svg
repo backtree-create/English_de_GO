@@ -1,28 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#9266DA"/><stop offset="1" stop-color="#481D84"/>
+      <stop offset="0" stop-color="#A87BF0"/><stop offset="1" stop-color="#4E2292"/>
     </linearGradient>
-    <clipPath id="clip"><rect x="0" y="0" width="512" height="512" rx="113" ry="113"/></clipPath>
+    <radialGradient id="glow" cx="50%" cy="34%" r="52%">
+      <stop offset="0" stop-color="#F0E0FF" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#F0E0FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFEE96"/><stop offset="1" stop-color="#FFBC1A"/>
+    </linearGradient>
+    <clipPath id="clip"><rect x="0" y="0" width="512" height="512" rx="114" ry="114"/></clipPath>
   </defs>
-  <g clip-path="url(#clip)">
-    <rect width="512" height="512" fill="url(#bg)"/>
-    <g stroke="#ffffff" stroke-opacity=".24" stroke-width="7">
-      <path d="M0,451 H512 M0,469 H512 M0,487 H512"/>
-      <path d="M256,451 L154,512 M256,451 L358,512 M256,451 L54,512 M256,451 L458,512"/>
+
+  <g clip-path="url(#clip)" stroke="#2A1B45" stroke-linejoin="round">
+    <rect width="512" height="512" fill="url(#bg)" stroke="none"/>
+    <rect width="512" height="512" fill="url(#glow)" stroke="none"/>
+
+    <!-- 頭の毛 -->
+    <path d="M234,146 Q196,86 248,44 Q296,86 288,148 Z" fill="#FFBC1A" stroke-width="16"/>
+
+    <!-- 落ち影 -->
+    <ellipse cx="256" cy="364" rx="140" ry="32" fill="#1E0C3A" opacity=".22" stroke="none"/>
+
+    <!-- 顔 -->
+    <ellipse cx="256" cy="238" rx="176" ry="146" fill="url(#face)" stroke-width="22"/>
+    <ellipse cx="167" cy="169" rx="47" ry="37" fill="#fff" opacity=".38" stroke="none"/>
+
+    <!-- ほっぺ -->
+    <ellipse cx="126" cy="283" rx="33" ry="21" fill="#FF96AF" stroke="none"/>
+    <ellipse cx="386" cy="283" rx="33" ry="21" fill="#FF96AF" stroke="none"/>
+
+    <!-- 目 -->
+    <g stroke-width="13">
+      <ellipse cx="190" cy="220" rx="45" ry="50" fill="#fff"/>
+      <ellipse cx="322" cy="220" rx="45" ry="50" fill="#fff"/>
     </g>
-    <g fill="#FFF8EA" stroke="#2A1B45" stroke-width="15">
-      <rect x="110" y="79" width="79" height="102" rx="18"/>
-      <rect x="202" y="79" width="79" height="102" rx="18"/>
-      <rect x="294" y="79" width="79" height="102" rx="18"/>
+    <g fill="#2A1B45" stroke="none">
+      <ellipse cx="196" cy="227" rx="25" ry="30"/>
+      <ellipse cx="316" cy="227" rx="25" ry="30"/>
     </g>
-    <g fill="#2A1B45" font-family="Arial Black,Arial,Helvetica,sans-serif" font-weight="900"
-       font-size="70" text-anchor="middle">
-      <text x="150" y="155">A</text><text x="242" y="155">B</text><text x="334" y="155">C</text>
+    <g fill="#fff" stroke="none">
+      <ellipse cx="186" cy="203" rx="11" ry="15"/>
+      <ellipse cx="306" cy="203" rx="11" ry="15"/>
+      <circle cx="205" cy="246" r="7" opacity=".8"/>
+      <circle cx="325" cy="246" r="7" opacity=".8"/>
     </g>
-    <text x="256" y="405" text-anchor="middle" font-family="Arial Black,Arial,Helvetica,sans-serif"
-      font-weight="900" font-size="205" fill="#FFD43B" stroke="#2A1B45" stroke-width="48"
-      paint-order="stroke fill">GO!</text>
+
+    <!-- くちばし -->
+    <path d="M230,288 L282,288 L256,334 Z" fill="#F38A1F" stroke-width="13"/>
+
+    <!-- 解答欄 -->
+    <rect x="56" y="384" width="400" height="80" rx="26" fill="#FFF8EA" stroke-width="19"/>
+    <g fill="#CAC0DE" stroke="none">
+      <rect x="112" y="415" width="50" height="18" rx="9"/>
+      <rect x="178" y="415" width="50" height="18" rx="9"/>
+      <rect x="244" y="415" width="50" height="18" rx="9"/>
+    </g>
+    <rect x="316" y="402" width="16" height="44" rx="8" fill="#2A1B45" stroke="none"/>
   </g>
-  <rect x="7" y="7" width="498" height="498" rx="108" ry="108" fill="none" stroke="#2A1B45" stroke-width="28"/>
 </svg>
