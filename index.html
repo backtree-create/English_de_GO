@@ -19,6 +19,7 @@
 <meta property="og:type" content="website">
 <style>
   html, body { margin:0; padding:0; height:100%; background:#150C2B; }
+  html.is-app, html.is-app body { overflow:hidden; height:var(--appvh, 100dvh); }
   body {
     font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic UI","Noto Sans JP",sans-serif;
     color:#fff; -webkit-text-size-adjust:100%; overscroll-behavior:none;
@@ -27,6 +28,15 @@
     max-width:1000px; margin:0 auto;
     padding:12px 12px calc(12px + env(safe-area-inset-bottom)) 12px;
     box-sizing:border-box;
+    display:flex; align-items:center; justify-content:center;
+    min-height:100vh; min-height:100dvh;
+  }
+  /* ホーム画面から起動したとき（アプリ表示）は余白をなくして画面いっぱいに */
+  html.is-app #root {
+    max-width:none; width:100%;
+    height:var(--appvh, 100dvh); min-height:0;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right)
+            env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
   #boot {
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -64,6 +74,34 @@
 <script type="text/babel" src="app.jsx" data-presets="react"></script>
 
 <script>
+  // アプリ表示（ホーム画面から起動 / 全画面）かどうかを判定して <html> に印をつける
+  function markAppMode() {
+    var standalone =
+      (window.matchMedia && (
+        matchMedia("(display-mode: standalone)").matches ||
+        matchMedia("(display-mode: fullscreen)").matches ||
+        matchMedia("(display-mode: minimal-ui)").matches)) ||
+      navigator.standalone === true ||
+      !!(document.fullscreenElement || document.webkitFullscreenElement);
+    document.documentElement.classList.toggle("is-app", !!standalone);
+  }
+  // iPad / iPhone は dvh が当てにならないので実測値を渡す
+  function setViewportHeight() {
+    var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+    document.documentElement.style.setProperty("--appvh", Math.round(h) + "px");
+  }
+  function refresh() { markAppMode(); setViewportHeight(); }
+  refresh();
+  window.addEventListener("resize", refresh);
+  window.addEventListener("orientationchange", function () { setTimeout(refresh, 250); });
+  document.addEventListener("fullscreenchange", refresh);
+  document.addEventListener("webkitfullscreenchange", refresh);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", setViewportHeight);
+  ["standalone", "fullscreen", "minimal-ui"].forEach(function (m) {
+    var mq = window.matchMedia && matchMedia("(display-mode: " + m + ")");
+    if (mq && mq.addEventListener) mq.addEventListener("change", refresh);
+  });
+
   // 10秒たっても起動しなければ案内を出す
   setTimeout(function () {
     var boot = document.getElementById("boot");

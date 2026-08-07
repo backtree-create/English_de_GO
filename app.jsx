@@ -1744,9 +1744,25 @@ const CSS = `
   font-family:var(--round); color:#fff; -webkit-font-smoothing:antialiased;
 }
 .edg *{box-sizing:border-box;}
-.stage{position:relative; width:100%; max-width:980px; margin:0 auto; aspect-ratio:16/9;
-  min-height:500px; overflow:hidden; border-radius:14px; background:#3A2A6E;
+.stage{position:relative; width:100%; max-width:1000px; margin:0 auto; aspect-ratio:16/9;
+  max-height:calc(100vh - 24px); max-height:calc(100dvh - 24px);
+  overflow:hidden; border-radius:14px; background:#3A2A6E;
   border:4px solid var(--out); box-shadow:0 10px 0 #00000035;}
+/* 縦長の画面（タブレット縦持ち・スマホ）は高さいっぱいに広げる */
+@media (max-aspect-ratio:1/1){
+  .stage{aspect-ratio:auto; height:var(--appvh, calc(100dvh - 24px)); max-height:none;}
+}
+/* ホーム画面から起動したとき（アプリ表示）は余白なしで全画面 */
+.is-app .stage{max-width:none; width:100%; aspect-ratio:auto; max-height:none;
+  height:var(--appvh, 100dvh); border-radius:0; border:none; box-shadow:none;}
+@media (display-mode:standalone){
+  .stage{max-width:none; width:100%; aspect-ratio:auto; max-height:none;
+    height:var(--appvh, 100dvh); border-radius:0; border:none; box-shadow:none;}
+}
+@media (display-mode:fullscreen){
+  .stage{max-width:none; width:100%; aspect-ratio:auto; max-height:none;
+    height:var(--appvh, 100dvh); border-radius:0; border:none; box-shadow:none;}
+}
 .layer{position:absolute; inset:0; padding:14px 16px;}
 .center-col{display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:11px; padding:16px; overflow:auto;}
@@ -1816,7 +1832,7 @@ const CSS = `
 /* ================= HUD ================= */
 .play{display:flex; flex-direction:column; gap:8px;}
 .topbar{flex:none; display:flex; justify-content:space-between; align-items:flex-start; gap:12px; z-index:4;}
-.mid{flex:1; min-height:0; display:flex; align-items:stretch; gap:14px; z-index:3;}
+.mid{flex:1; min-height:120px; display:flex; align-items:stretch; gap:14px; z-index:3;}
 .hud-tl{display:flex; flex-direction:column; gap:8px; min-width:0;}
 .capsule{display:flex; background:var(--paper); border:3px solid var(--out); box-shadow:0 4px 0 var(--out);
   border-radius:999px; padding:5px; gap:3px; width:fit-content;}
@@ -1992,15 +2008,14 @@ const CSS = `
 .edg:fullscreen{display:flex; align-items:center; justify-content:center;
   width:100vw; height:100vh; background:#150C2B; padding:0;}
 .edg:fullscreen .stage{max-width:none; width:100%; height:100%; aspect-ratio:auto;
-  min-height:0; border-radius:0; border:none; box-shadow:none;}
+  max-height:none; border-radius:0; border:none; box-shadow:none;}
 .edg:-webkit-full-screen{display:flex; align-items:center; justify-content:center;
   width:100vw; height:100vh; background:#150C2B; padding:0;}
 .edg:-webkit-full-screen .stage{max-width:none; width:100%; height:100%; aspect-ratio:auto;
-  min-height:0; border-radius:0; border:none; box-shadow:none;}
+  max-height:none; border-radius:0; border:none; box-shadow:none;}
 
 /* タブレット */
 @media (max-width:900px){
-  .stage{min-height:480px;}
   .meaning{font-size:clamp(28px,6.6vw,64px);}
   .charcol{flex:0 0 clamp(104px,20%,168px);}
   .diff{font-size:14px; padding:4px 14px;}
@@ -2008,7 +2023,7 @@ const CSS = `
 }
 /* 横向きで高さが足りない端末 */
 @media (max-height:520px) and (orientation:landscape){
-  .stage{min-height:0; height:calc(100dvh - 20px); aspect-ratio:auto;}
+  .stage{height:var(--appvh, calc(100dvh - 20px)); aspect-ratio:auto; max-height:none;}
   .qlabel{display:none;}
   .bubble{display:none;}
   .giveup{display:none;}
@@ -2016,7 +2031,6 @@ const CSS = `
   .inputbox{min-height:44px;}
 }
 @media (max-width:640px){
-  .stage{aspect-ratio:auto; min-height:600px;}
   .layer{padding:10px 11px;}
   .cell{width:19px; height:19px; font-size:10px;}
   .out{-webkit-text-stroke-width:6px;}
