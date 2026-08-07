@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9266DA"/><stop offset="1" stop-color="#481D84"/>
+    </linearGradient>
+    <clipPath id="clip"><rect x="0" y="0" width="512" height="512" rx="113" ry="113"/></clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <g stroke="#ffffff" stroke-opacity=".24" stroke-width="7">
+      <path d="M0,451 H512 M0,469 H512 M0,487 H512"/>
+      <path d="M256,451 L154,512 M256,451 L358,512 M256,451 L54,512 M256,451 L458,512"/>
+    </g>
+    <g fill="#FFF8EA" stroke="#2A1B45" stroke-width="15">
+      <rect x="110" y="79" width="79" height="102" rx="18"/>
+      <rect x="202" y="79" width="79" height="102" rx="18"/>
+      <rect x="294" y="79" width="79" height="102" rx="18"/>
+    </g>
+    <g fill="#2A1B45" font-family="Arial Black,Arial,Helvetica,sans-serif" font-weight="900"
+       font-size="70" text-anchor="middle">
+      <text x="150" y="155">A</text><text x="242" y="155">B</text><text x="334" y="155">C</text>
+    </g>
+    <text x="256" y="405" text-anchor="middle" font-family="Arial Black,Arial,Helvetica,sans-serif"
+      font-weight="900" font-size="205" fill="#FFD43B" stroke="#2A1B45" stroke-width="48"
+      paint-order="stroke fill">GO!</text>
+  </g>
+  <rect x="7" y="7" width="498" height="498" rx="108" ry="108" fill="none" stroke="#2A1B45" stroke-width="28"/>
+</svg>
