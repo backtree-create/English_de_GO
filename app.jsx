@@ -1370,7 +1370,24 @@ function EnglishDeGo() {
     else bgm.stop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screen, lvIndex, bgmOn]);
-
+   
+/* --- まなびの基板へ記録を送る --- */
+useEffect(() => {
+  if (!window.manabiReport) return;
+  if (screen !== "clear" && screen !== "result" && screen !== "over") return;
+  const done = screen === "result" ? LEVELS.length
+             : screen === "clear" ? lvIndex + 1 : lvIndex;
+  window.manabiReport({
+    app: "english-go",
+    done,
+    total: LEVELS.length,
+    best: Math.round((clearedQ / TOTAL_Q) * 100),
+    note: screen === "result" ? `全ステージ制覇 ${score.toLocaleString()}点`
+        : screen === "clear"  ? `STAGE ${lvIndex + 1} クリア`
+        : `STAGE ${lvIndex + 1} でゲームオーバー`,
+  });
+}, [screen]);
+   
   /* --- 残り時間が少なくなるとテンポと音量が上がる --- */
   const urgent = screen === "play" && limit > 0 && left / limit < 0.3;
   useEffect(() => { bgm.setUrgent(urgent); }, [urgent, bgm]);
