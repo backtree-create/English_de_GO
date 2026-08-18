@@ -1381,7 +1381,7 @@ useEffect(() => {
     app: "english-go",
     done,
     total: LEVELS.length,
-    best: Math.round((clearedQ / TOTAL_Q) * 100),
+    best: Math.round((clearedQ / TOTAL_Q) * 1000), // クリアした問題の割合を1000点満点で
     note: screen === "result" ? `全ステージ制覇 ${score.toLocaleString()}点`
         : screen === "clear"  ? `STAGE ${lvIndex + 1} クリア`
         : `STAGE ${lvIndex + 1} でゲームオーバー`,
